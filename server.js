@@ -2,13 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const dbConfig = require("./app/config/db.config");
 const mongoose = require('mongoose')
+require("dotenv").config()
 
 mongoose.set('strictQuery', false)
 
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: process.env.CORS_ORIGIN
 };
 
 app.use(cors(corsOptions));
@@ -22,8 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 
+//`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
+  .connect(`${dbConfig.PATH}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })

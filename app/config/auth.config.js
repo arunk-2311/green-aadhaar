@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 module.exports = {
-  secret: "green-aadhaar-secret-key"
+  secret: process.env.SECRET
 };
